@@ -26,6 +26,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   title: z.string().min(2).max(200),
@@ -49,8 +51,13 @@ export function CourseForm(props: CourseFormProps) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+        axios.patch(`/api/course/${course.id}`, values)
+        toast("Curso actualizado correctamente ")
+    } catch (error) {
+        toast.error("Error al actualizar el curso")
+    }
   }
 
   return (

@@ -1,9 +1,18 @@
 import { Button } from "@/components/ui/button";
+import { ExploreCourses } from "./components";
+import { getHomeCourses } from "@/actions/getHomeCourses";
+import { ListCourses } from "@/components/Shared";
 
-export default function Home() {
+export default async function Home() {
+
+  const listCourses = await getHomeCourses()
+
+
   return (
    <div>
-    <Button>Test Button</Button>
+   <ExploreCourses />
+
+   <ListCourses title="Cursos mas populares" courses={listCourses}/>
    </div>
   );
 }
